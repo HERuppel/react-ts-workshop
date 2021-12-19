@@ -10,5 +10,14 @@ export const useStyles = makeStyles((theme: Theme) =>
       height: '100vh',
       width: '100vw',
     },
+    content: {
+      height: '90%',
+      width: '100%',
+      backgroundColor: theme.palette.divider,
+      borderRadius: 10,
+      display: 'flex',
+      justifyContent: 'center',
+      padding: theme.spacing(2),
+    },
   }),
 );

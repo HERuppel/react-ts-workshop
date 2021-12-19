@@ -4,12 +4,15 @@ import AppRoutes from './routes';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './global/theme';
+import Provider from './hooks';
 
 function App() {
   return (
     <BrowserRouter>
       <ThemeProvider theme={theme}>
-        <AppRoutes />
+        <Provider>
+          <AppRoutes />
+        </Provider>
       </ThemeProvider>
     </BrowserRouter>
   );
