@@ -1,14 +1,15 @@
 import { createTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
-import green from '@material-ui/core/colors/green';
 
 export const theme = createTheme({
   palette: {
     primary: {
-      main: purple[500],
+      main: '#3C6E71',
     },
     secondary: {
-      main: green[500],
+      main: '#284B63',
+    },
+    background: {
+      default: '#D9D9D9',
     },
   },
   overrides: {

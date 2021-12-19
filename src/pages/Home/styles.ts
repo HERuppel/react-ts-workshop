@@ -27,17 +27,16 @@ export const useStyles = makeStyles((theme: Theme) =>
       width: '100%',
     },
     addButton: {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.secondary.main,
       color: theme.palette.common.white,
 
       '&:hover': {
-        backgroundColor: theme.palette.primary.dark,
+        backgroundColor: theme.palette.secondary.dark,
       },
     },
     body: {
       display: 'flex',
       height: '100%',
-      backgroundColor: theme.palette.secondary.main,
       padding: theme.spacing(2),
     },
   }),
