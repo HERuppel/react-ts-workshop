@@ -15,18 +15,24 @@ export const ItemProvider: React.FC = ({ children }) => {
     const storageItems = localStorage.getItem('@krud:items');
 
     if (storageItems) {
-      return { ...JSON.parse(storageItems) };
+      return [...JSON.parse(storageItems)];
     }
-    return {} as Item[];
+    return [] as Item[];
   });
 
   const addItem = useCallback((newItem: Item) => {
-    setItems(prev => [...prev, newItem]);
+    setItems(prev => {
+      const newItems = [...prev, newItem];
+      localStorage.setItem('@krud:items', JSON.stringify(newItems));
+
+      return newItems;
+    });
   }, []);
 
   const updateItem = useCallback((updatedItem: Item) => {
     setItems(prev => {
       const newItems = prev.map(item => (item.name === updatedItem.name ? updatedItem : item));
+      localStorage.setItem('@krud:items', JSON.stringify(newItems));
       return newItems;
     });
   }, []);
@@ -34,6 +40,7 @@ export const ItemProvider: React.FC = ({ children }) => {
   const removeItem = useCallback((removedItem: Item) => {
     setItems(prev => {
       const newItems = prev.filter(item => item.name !== removedItem.name);
+      localStorage.setItem('@krud:items', JSON.stringify(newItems));
       return newItems;
     });
   }, []);
