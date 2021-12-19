@@ -25,7 +25,13 @@ export const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       position: 'relative',
     },
-    body: {},
+    body: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      width: '100%',
+      height: '100%',
+    },
     closeButton: {
       height: 30,
       position: 'absolute',

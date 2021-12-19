@@ -2,8 +2,12 @@ import React from 'react';
 import { Modal as ModalComponent, Box, Button, Typography } from '@material-ui/core';
 import { useStyles } from './styles';
 
-import { Close } from '@material-ui/icons';
+import { Close, Save } from '@material-ui/icons';
+
 import { Item } from '../../@types/Item';
+
+import { FormProvider, useForm } from 'react-hook-form';
+import Input from '../Input';
 
 interface ModalProps {
   open: boolean;
@@ -25,6 +29,17 @@ const Modal: React.FC<ModalProps> = ({
   editItem,
 }: ModalProps) => {
   const classes = useStyles();
+  const formMethods = useForm<Item>();
+  const { handleSubmit, reset } = formMethods;
+
+  const onSubmit = (data: Item) => {
+    console.log(data);
+  };
+
+  const closeModal = (): void => {
+    reset();
+    handleClose();
+  };
 
   return (
     <>
@@ -41,14 +56,18 @@ const Modal: React.FC<ModalProps> = ({
         <Box className={classes.content}>
           <div className={classes.header}>
             <Typography variant='h5'>{editItem ? `Editar ${editItem.name}` : 'Adicionar Item'}</Typography>
-            <Button
-              className={classes.closeButton}
-              endIcon={<Close fontSize='large' />}
-              onClick={handleClose}
-            >
+            <Button className={classes.closeButton} endIcon={<Close fontSize='large' />} onClick={closeModal}>
               Fechar
             </Button>
           </div>
+          <FormProvider {...formMethods}>
+            <form id='form' className={classes.body} onSubmit={handleSubmit(onSubmit)}>
+              <Input name='name' label='Nome' required givenError='Insira o nome' />
+              <Button type='submit' endIcon={<Save />}>
+                Salvar
+              </Button>
+            </form>
+          </FormProvider>
         </Box>
       </ModalComponent>
     </>
