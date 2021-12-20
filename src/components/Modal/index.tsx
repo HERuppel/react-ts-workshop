@@ -63,6 +63,7 @@ const Modal: React.FC<ModalProps> = ({
           <FormProvider {...formMethods}>
             <form id='form' className={classes.body} onSubmit={handleSubmit(onSubmit)}>
               <Input name='name' label='Nome' required givenError='Insira o nome' />
+              <Input name='author' label='Autor' required givenError='Insira o autor' />
               <Button type='submit' endIcon={<Save />}>
                 Salvar
               </Button>

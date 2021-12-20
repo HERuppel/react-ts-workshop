@@ -11,12 +11,18 @@ interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({ label, name, required, givenError, customClass }) => {
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+
+  console.log(errors);
 
   return (
     <TextField
       variant='outlined'
       label={label}
+      helperText={errors[name] && givenError}
       className={customClass}
       {...register(name, { required: { value: required as boolean, message: givenError as string } })}
     />
