@@ -11,14 +11,14 @@ import { useStyles } from './styles';
 import { Add } from '@material-ui/icons';
 
 // Hook
-import { useItem } from '../../../hooks/Item';
+import { usePost } from '../../../hooks/Item';
 
 const Posts: React.FC = () => {
   const classes = useStyles();
-  const { items } = useItem();
+  const { posts } = usePost();
   const [openModal, setOpenModal] = useState<boolean>(false);
 
-  console.log('ITEMS', items);
+  console.log('posts', posts);
 
   return (
     <Container className={classes.container}>

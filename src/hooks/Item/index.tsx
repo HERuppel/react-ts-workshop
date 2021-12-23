@@ -1,69 +1,49 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
-import { Item } from '../../@types/Item';
+import { Post } from '../../@types/Post';
 
-interface ItemContextData {
-  items: Item[];
-  addItem: (newItem: Item) => void;
-  updateItem: (updatedItem: Item) => void;
-  removeItem: (removedItem: Item) => void;
+interface PostContextData {
+  posts: Post[];
+  addPost: (newPost: Post) => void;
 }
 
-const ItemContext = createContext<ItemContextData>({} as ItemContextData);
+const PostContext = createContext<PostContextData>({} as PostContextData);
 
-export const ItemProvider: React.FC = ({ children }) => {
-  const [items, setItems] = useState<Item[]>(() => {
-    const storageItems = localStorage.getItem('@krud:items');
+export const PostProvider: React.FC = ({ children }) => {
+  const [posts, setPosts] = useState<Post[]>(() => {
+    const storagePosts = localStorage.getItem('@krud:posts');
 
-    if (storageItems) {
-      return [...JSON.parse(storageItems)];
+    if (storagePosts) {
+      return [...JSON.parse(storagePosts)];
     }
-    return [] as Item[];
+    return [] as Post[];
   });
 
-  const addItem = useCallback((newItem: Item) => {
-    setItems(prev => {
-      const newItems = [...prev, newItem];
-      localStorage.setItem('@krud:items', JSON.stringify(newItems));
+  const addPost = useCallback((newPost: Post) => {
+    setPosts(prev => {
+      const newPosts = [...prev, newPost];
+      localStorage.setItem('@krud:posts', JSON.stringify(newPosts));
 
-      return newItems;
-    });
-  }, []);
-
-  const updateItem = useCallback((updatedItem: Item) => {
-    setItems(prev => {
-      const newItems = prev.map(item => (item.name === updatedItem.name ? updatedItem : item));
-      localStorage.setItem('@krud:items', JSON.stringify(newItems));
-      return newItems;
-    });
-  }, []);
-
-  const removeItem = useCallback((removedItem: Item) => {
-    setItems(prev => {
-      const newItems = prev.filter(item => item.name !== removedItem.name);
-      localStorage.setItem('@krud:items', JSON.stringify(newItems));
-      return newItems;
+      return newPosts;
     });
   }, []);
 
   return (
-    <ItemContext.Provider
+    <PostContext.Provider
       value={{
-        items,
-        addItem,
-        updateItem,
-        removeItem,
+        posts,
+        addPost,
       }}
     >
       {children}
-    </ItemContext.Provider>
+    </PostContext.Provider>
   );
 };
 
-export const useItem = (): ItemContextData => {
-  const context = useContext(ItemContext);
+export const usePost = (): PostContextData => {
+  const context = useContext(PostContext);
 
   if (!context) {
-    throw new Error('');
+    throw new Error('This feature must be used within a provider');
   }
 
   return context;

@@ -4,7 +4,7 @@ import { useStyles } from './styles';
 
 import { Close, Save } from '@material-ui/icons';
 
-import { Item } from '../../@types/Item';
+import { Post } from '../../@types/Post';
 
 import { FormProvider, useForm } from 'react-hook-form';
 import Input from '../Input';
@@ -16,7 +16,6 @@ interface ModalProps {
   buttonTitle?: string;
   buttonIcon?: React.ReactElement;
   buttonClass?: string;
-  editItem?: Item;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -26,13 +25,12 @@ const Modal: React.FC<ModalProps> = ({
   buttonTitle,
   buttonIcon,
   buttonClass,
-  editItem,
 }: ModalProps) => {
   const classes = useStyles();
-  const formMethods = useForm<Item>();
+  const formMethods = useForm<Post>();
   const { handleSubmit, reset } = formMethods;
 
-  const onSubmit = (data: Item) => {
+  const onSubmit = (data: Post) => {
     console.log(data);
   };
 
@@ -55,7 +53,7 @@ const Modal: React.FC<ModalProps> = ({
       >
         <Box className={classes.content}>
           <div className={classes.header}>
-            <Typography variant='h5'>{editItem ? `Editar ${editItem.name}` : 'Adicionar Item'}</Typography>
+            <Typography variant='h5'>Adicionar Post</Typography>
             <Button className={classes.closeButton} endIcon={<Close fontSize='large' />} onClick={closeModal}>
               Fechar
             </Button>
