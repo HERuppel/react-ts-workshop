@@ -25,13 +25,15 @@ const Register: React.FC = () => {
     <div className={classes.container}>
       <form className={classes.formContainer} onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.header}>
-          <Typography variant='h5'>HEADER</Typography>
+          <Typography color='secondary' variant='h5'>
+            Insira suas informações para o registro
+          </Typography>
         </div>
         <FormProvider {...formMethods}>
           <Input name='email' label='E-mail' />
           <Input name='name' label='Nome' />
-          <Input name='password' label='Senha' />
-          <Input name='confirmPassword' label='Confirme a senha' />
+          <Input type='password' name='password' label='Senha' />
+          <Input type='password' name='confirmPassword' label='Confirme a senha' />
         </FormProvider>
         <div className={classes.bottomContainer}>
           <Button className={classes.button} type='submit'>

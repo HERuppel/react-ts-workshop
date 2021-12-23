@@ -18,7 +18,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: '#FFF',
       padding: theme.spacing(4),
       height: '50%',
-      width: '30%',
+      width: '25%',
       position: 'relative',
       borderRadius: 20,
     },
@@ -28,7 +28,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       right: 0,
       left: 0,
       textAlign: 'center',
-      paddingTop: theme.spacing(4),
+      paddingTop: theme.spacing(6),
     },
     button: {
       backgroundColor: theme.palette.primary.main,

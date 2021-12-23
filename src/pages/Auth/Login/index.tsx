@@ -22,12 +22,14 @@ const Login: React.FC = () => {
   return (
     <Grid container xs={12} className={classes.container}>
       <Grid className={classes.left} item xs={6}>
-        <Typography variant='h2'>Bem-vindo(a) ao KRUD!</Typography>
+        <Typography style={{ color: '#FFF' }} variant='h2'>
+          Bem-vindo(a) ao KRUD!
+        </Typography>
       </Grid>
       <Grid className={classes.right} item xs={6}>
         <form className={classes.formContainer} onSubmit={handleSubmit(onSubmit)}>
-          <Typography className={classes.header} variant='h5'>
-            Insira suas credencias
+          <Typography color='secondary' className={classes.header} variant='h5'>
+            Insira suas credenciais
           </Typography>
           <FormProvider {...formMethods}>
             <Input name='email' label='E-mail' />
