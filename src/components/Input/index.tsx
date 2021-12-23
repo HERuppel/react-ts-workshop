@@ -8,9 +8,10 @@ interface InputProps {
   required?: boolean;
   givenError?: string;
   customClass?: string;
+  type?: string;
 }
 
-const Input: React.FC<InputProps> = ({ label, name, required, givenError, customClass }) => {
+const Input: React.FC<InputProps> = ({ label, name, required, givenError, customClass, type }) => {
   const {
     register,
     formState: { errors },
@@ -21,6 +22,7 @@ const Input: React.FC<InputProps> = ({ label, name, required, givenError, custom
   return (
     <TextField
       variant='outlined'
+      type={type}
       label={label}
       helperText={errors[name] && givenError}
       className={customClass}
