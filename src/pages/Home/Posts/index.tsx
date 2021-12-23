@@ -11,7 +11,7 @@ import { useStyles } from './styles';
 import { Add } from '@material-ui/icons';
 
 // Hook
-import { usePost } from '../../../hooks/Item';
+import { usePost } from '../../../hooks/Post';
 
 const Posts: React.FC = () => {
   const classes = useStyles();
@@ -29,7 +29,7 @@ const Posts: React.FC = () => {
             open={openModal}
             handleClose={() => setOpenModal(false)}
             handleOpen={() => setOpenModal(true)}
-            buttonTitle='Adicionar Item'
+            buttonTitle='Adicionar post'
             buttonIcon={<Add />}
             buttonClass={classes.addButton}
           />
