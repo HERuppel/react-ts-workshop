@@ -19,7 +19,7 @@ const Login: React.FC = () => {
   const navigate = useNavigate();
   const formMethods = useForm<FormCredentials>();
   const { handleSubmit } = formMethods;
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const onSubmit = async (data: FormCredentials): Promise<void> => {
     try {
