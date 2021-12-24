@@ -22,7 +22,6 @@ const Posts: React.FC = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  console.log('posts', posts);
   useEffect(() => {
     (async () => {
       try {

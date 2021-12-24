@@ -10,6 +10,7 @@ interface InputProps {
   customClass?: string;
   type?: string;
   defaultValue?: string;
+  multiline?: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -20,6 +21,7 @@ const Input: React.FC<InputProps> = ({
   customClass,
   type,
   defaultValue,
+  multiline,
 }) => {
   const {
     register,
@@ -33,6 +35,8 @@ const Input: React.FC<InputProps> = ({
       variant='outlined'
       type={type}
       label={label}
+      multiline={multiline}
+      minRows={multiline ? 3 : 1}
       defaultValue={defaultValue}
       helperText={errors[name] && givenError}
       className={customClass}

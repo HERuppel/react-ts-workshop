@@ -21,7 +21,7 @@ interface LoginResponse {
 
 interface AuthContextData {
   user: User;
-  signIn: (credentials: AuthCredentials) => void;
+  signIn: (credentials: AuthCredentials) => Promise<void>;
   signUp: (userData: SignUpData) => Promise<Response<User>>;
 }
 
@@ -39,7 +39,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     return {} as User;
   });
 
-  const signIn = useCallback(async (credentials: AuthCredentials) => {
+  const signIn = useCallback(async (credentials: AuthCredentials): Promise<void> => {
     const { data }: { data: Response<LoginResponse> } = await api.post('auth/login', credentials);
 
     localStorage.setItem('@krud:user', JSON.stringify(data.content?.user));

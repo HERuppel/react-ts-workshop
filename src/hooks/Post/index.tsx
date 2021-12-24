@@ -5,35 +5,31 @@ import { api } from '../../services/api';
 
 interface PostContextData {
   posts: Post[];
-  addPost: (newPost: Post) => void;
-  fetchPosts: () => Promise<Post[]>;
+  addPost: (newPost: Post) => Promise<Response<Post>>;
+  fetchPosts: () => Promise<void>;
 }
 
 const PostContext = createContext<PostContextData>({} as PostContextData);
 
 export const PostProvider: React.FC = ({ children }) => {
-  const [posts, setPosts] = useState<Post[]>(() => {
-    const storagePosts = localStorage.getItem('@krud:posts');
+  const [posts, setPosts] = useState<Post[]>([]);
 
-    if (storagePosts) {
-      return [...JSON.parse(storagePosts)];
-    }
-    return [] as Post[];
-  });
-
-  const fetchPosts = useCallback(async (): Promise<Post[]> => {
+  const fetchPosts = useCallback(async (): Promise<void> => {
     const { data }: { data: Response<Post[]> } = await api.get('post/read');
 
-    return data.content as Post[];
+    setPosts(data.content as Post[]);
   }, []);
 
-  const addPost = useCallback((newPost: Post) => {
+  const addPost = useCallback(async (newPost: Post): Promise<Response<Post>> => {
+    const { data }: { data: Response<Post> } = await api.post('post/create', newPost);
+
     setPosts(prev => {
-      const newPosts = [...prev, newPost];
-      localStorage.setItem('@krud:posts', JSON.stringify(newPosts));
+      const newPosts = [...prev, data.content as Post];
 
       return newPosts;
     });
+
+    return data;
   }, []);
 
   return (

@@ -27,10 +27,11 @@ const Login: React.FC = () => {
       setLoading(true);
       await signIn(data);
       navigate('/home/posts', { state: {} });
-    } catch (err) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
       showAlert({
         title: 'Ops...',
-        text: 'Ocorreu um problema no login',
+        text: err.response.data.message,
         icon: 'error',
       });
     } finally {

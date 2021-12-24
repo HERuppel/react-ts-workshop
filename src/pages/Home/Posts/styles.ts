@@ -36,8 +36,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     body: {
       display: 'flex',
+      flexDirection: 'column',
       height: '100%',
       padding: theme.spacing(2),
+      alignItems: 'center',
+      justifyContent: 'center',
     },
   }),
 );
