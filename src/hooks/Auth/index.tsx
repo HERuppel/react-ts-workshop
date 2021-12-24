@@ -24,8 +24,12 @@ export const AuthProvider: React.FC = ({ children }) => {
     return {} as User;
   });
 
-  const signIn = useCallback(() => {
-    // TODO
+  const signIn = useCallback(async (credentials: AuthCredentials) => {
+    try {
+      console.log(credentials);
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   const signUp = useCallback(() => {

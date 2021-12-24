@@ -1,9 +1,12 @@
 import { Button, Grid, Typography } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import Input from '../../../components/Input';
 import { useStyles } from './styles';
+import { showAlert } from '.././../../utils/showAlert';
+import { useAuth } from '../../../hooks/Auth';
+import Loading from '../../../components/Loading';
 
 interface FormCredentials {
   email: string;
@@ -12,11 +15,26 @@ interface FormCredentials {
 
 const Login: React.FC = () => {
   const classes = useStyles();
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
   const formMethods = useForm<FormCredentials>();
   const { handleSubmit } = formMethods;
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const onSubmit = (data: FormCredentials) => {
-    console.log(data);
+  const onSubmit = async (data: FormCredentials): Promise<void> => {
+    try {
+      setLoading(true);
+      signIn(data);
+      navigate('/home/posts');
+    } catch (err) {
+      showAlert({
+        title: 'Ops...',
+        text: 'Ocorreu um problema no login',
+        icon: 'error',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -37,7 +55,7 @@ const Login: React.FC = () => {
           </FormProvider>
           <div className={classes.bottomContainer}>
             <Button className={classes.button} type='submit'>
-              Entrar
+              {loading ? <Loading loadingSize={16} /> : 'Entrar'}
             </Button>
             <NavLink className={classes.signUp} to='/auth/register'>
               <Typography variant='h6'>Ainda não possui conta?</Typography>
