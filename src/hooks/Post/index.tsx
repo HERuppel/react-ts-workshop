@@ -24,7 +24,7 @@ export const PostProvider: React.FC = ({ children }) => {
     const { data }: { data: Response<Post> } = await api.post('post/create', newPost);
 
     setPosts(prev => {
-      const newPosts = [...prev, data.content as Post];
+      const newPosts = [data.content as Post, ...prev];
 
       return newPosts;
     });
