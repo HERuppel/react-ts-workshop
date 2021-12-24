@@ -1,7 +1,7 @@
 import { Button, Grid, Typography } from '@material-ui/core';
 import React, { useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import Input from '../../../components/Input';
 import { useStyles } from './styles';
 import { showAlert } from '.././../../utils/showAlert';
@@ -17,6 +17,7 @@ const Login: React.FC = () => {
   const classes = useStyles();
   const { signIn } = useAuth();
   const navigate = useNavigate();
+  const { state } = useLocation();
   const formMethods = useForm<FormCredentials>();
   const { handleSubmit } = formMethods;
   const [loading, setLoading] = useState<boolean>(false);
@@ -24,8 +25,8 @@ const Login: React.FC = () => {
   const onSubmit = async (data: FormCredentials): Promise<void> => {
     try {
       setLoading(true);
-      signIn(data);
-      navigate('/home/posts');
+      await signIn(data);
+      navigate('/home/posts', { state: {} });
     } catch (err) {
       showAlert({
         title: 'Ops...',
@@ -50,7 +51,11 @@ const Login: React.FC = () => {
             Insira suas credenciais
           </Typography>
           <FormProvider {...formMethods}>
-            <Input name='email' label='E-mail' />
+            <Input
+              name='email'
+              label='E-mail'
+              defaultValue={state ? (state as { email: string }).email : ''}
+            />
             <Input name='password' label='Senha' type='password' />
           </FormProvider>
           <div className={classes.bottomContainer}>
