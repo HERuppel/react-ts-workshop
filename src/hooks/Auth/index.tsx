@@ -14,6 +14,11 @@ interface SignUpData {
   password: string;
 }
 
+interface LoginResponse {
+  user: User;
+  token: string;
+}
+
 interface AuthContextData {
   user: User;
   signIn: (credentials: AuthCredentials) => void;
@@ -25,35 +30,30 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 export const AuthProvider: React.FC = ({ children }) => {
   const [user, setUser] = useState<User>(() => {
     const storageUser = localStorage.getItem('@krud:user');
+    const storageToken = localStorage.getItem('@krud:token');
 
-    if (storageUser) {
+    if (storageUser && storageToken) {
+      api.defaults.headers.common['authorization'] = `Bearer ${storageToken}`;
       return JSON.parse(storageUser);
     }
     return {} as User;
   });
 
   const signIn = useCallback(async (credentials: AuthCredentials) => {
-    try {
-      const { data }: { data: Response<User> } = await api.post('auth/login', credentials);
+    const { data }: { data: Response<LoginResponse> } = await api.post('auth/login', credentials);
 
-      localStorage.setItem('@krud:user', JSON.stringify(data.content));
-      setUser(data.content as User);
+    localStorage.setItem('@krud:user', JSON.stringify(data.content?.user));
+    localStorage.setItem('@krud:token', data.content?.token as string);
 
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      throw new Error(err);
-    }
+    api.defaults.headers.common['authorization'] = `Bearer ${data.content?.token as string}`;
+
+    setUser(data.content?.user as User);
   }, []);
 
   const signUp = useCallback(async (userData: SignUpData): Promise<Response<User>> => {
-    try {
-      const { data }: { data: Response<User> } = await api.post('user/create', userData);
+    const { data }: { data: Response<User> } = await api.post('user/create', userData);
 
-      return data;
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    } catch (err: any) {
-      throw new Error(err);
-    }
+    return data;
   }, []);
 
   return (

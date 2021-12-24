@@ -1,9 +1,12 @@
 import React, { createContext, useCallback, useContext, useState } from 'react';
 import { Post } from '../../@types/Post';
+import { Response } from '../../@types/Response';
+import { api } from '../../services/api';
 
 interface PostContextData {
   posts: Post[];
   addPost: (newPost: Post) => void;
+  fetchPosts: () => Promise<Post[]>;
 }
 
 const PostContext = createContext<PostContextData>({} as PostContextData);
@@ -17,6 +20,12 @@ export const PostProvider: React.FC = ({ children }) => {
     }
     return [] as Post[];
   });
+
+  const fetchPosts = useCallback(async (): Promise<Post[]> => {
+    const { data }: { data: Response<Post[]> } = await api.get('post/read');
+
+    return data.content as Post[];
+  }, []);
 
   const addPost = useCallback((newPost: Post) => {
     setPosts(prev => {
@@ -32,6 +41,7 @@ export const PostProvider: React.FC = ({ children }) => {
       value={{
         posts,
         addPost,
+        fetchPosts,
       }}
     >
       {children}
