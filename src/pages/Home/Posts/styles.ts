@@ -7,23 +7,22 @@ export const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'center',
       alignItems: 'center',
-      height: '100vh',
-      width: '100vw',
+      minHeight: '80vh',
     },
     content: {
-      height: '90%',
       width: '100%',
       backgroundColor: theme.palette.divider,
       borderRadius: 10,
       display: 'flex',
       flexDirection: 'column',
-      justifyContent: 'center',
+      justifyContent: 'flex-start',
       padding: theme.spacing(2),
+      minHeight: '80vh',
     },
     header: {
       display: 'flex',
       alignItems: 'flex-start',
-      justifyContent: 'flex-end',
+      justifyContent: 'space-between',
       width: '100%',
     },
     addButton: {
@@ -41,6 +40,10 @@ export const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2),
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    refreshContainer: {
+      color: theme.palette.primary.main,
+      fontSize: 20,
     },
   }),
 );
