@@ -40,7 +40,7 @@ const Login: React.FC = () => {
   };
 
   return (
-    <Grid container xs={12} className={classes.container}>
+    <Grid container className={classes.container}>
       <Grid className={classes.left} item xs={6}>
         <Typography style={{ color: '#FFF' }} variant='h2'>
           Bem-vindo(a) ao KRUD!

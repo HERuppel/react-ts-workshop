@@ -59,7 +59,9 @@ const Posts: React.FC = () => {
 
   return (
     <Container className={classes.container}>
-      <Typography variant='h4'>Bem-vindo(a) ao KRUD!</Typography>
+      <Typography variant='h4' color='primary'>
+        Bem-vindo(a) ao KRUD!
+      </Typography>
       <Box className={classes.content}>
         <div className={classes.header}>
           <ButtonBase className={classes.refreshContainer} onClick={refreshPage}>
