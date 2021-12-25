@@ -1,3 +1,3 @@
-import { makeStyles, Theme, createStyles } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core';
 
-export const useStyles = makeStyles((theme: Theme) => createStyles({}));
+export const useStyles = makeStyles(() => createStyles({}));
