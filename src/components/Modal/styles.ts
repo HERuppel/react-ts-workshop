@@ -12,7 +12,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      height: '45%',
+      height: '50%',
       width: '30%',
       backgroundColor: theme.palette.common.white,
       borderRadius: 10,
@@ -56,6 +56,9 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     swalContainer: {
       zIndex: 99999,
+    },
+    textarea: {
+      resize: 'vertical',
     },
   }),
 );

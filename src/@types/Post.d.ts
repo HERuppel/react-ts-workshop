@@ -5,6 +5,7 @@ export interface Post {
   title: string;
   body: string;
   imageUrl?: string;
+  createdAt: string;
   userId?: string;
   user: User;
 }

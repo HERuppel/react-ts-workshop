@@ -83,7 +83,9 @@ const Modal: React.FC<ModalProps> = ({
       >
         <Box className={classes.content}>
           <div className={classes.header}>
-            <Typography variant='h5'>Adicionar Post</Typography>
+            <Typography variant='h5' color='secondary'>
+              Adicionar Post
+            </Typography>
             <Button className={classes.closeButton} endIcon={<Close fontSize='large' />} onClick={closeModal}>
               Fechar
             </Button>
@@ -92,7 +94,14 @@ const Modal: React.FC<ModalProps> = ({
             <form id='form' className={classes.body} onSubmit={handleSubmit(onSubmit)}>
               <Input name='title' label='Título' required givenError='Insira o Título do post' />
               <Input name='imageUrl' label='Imagem' />
-              <Input name='body' label='Texto' required givenError='Insira o texto' multiline />
+              <Input
+                name='body'
+                label='Texto'
+                required
+                givenError='Insira o texto'
+                multiline
+                customClass={classes.textarea}
+              />
               <Button className={classes.button} type='submit' endIcon={<Save />}>
                 {loading ? <Loading loadingSize={16} /> : 'Salvar'}
               </Button>

@@ -5,6 +5,7 @@ import { useAuth } from '../../hooks/Auth';
 import { useStyles } from './styles';
 
 import { ExpandMore } from '@material-ui/icons';
+import { maskDate } from '../../utils';
 
 interface PostCardProps {
   post: Post;
@@ -23,16 +24,19 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
       </Grid>
       <Grid className={classes.right} item xs={10}>
         <div>
-          <Typography variant='h4'>{post.title}</Typography>
+          <Typography variant='h4' color='secondary'>
+            {post.title}
+          </Typography>
           <Typography variant='h6'>
             Autor: {post.userId === id ? name : post.user.name}{' '}
-            <Typography variant='h6' color='textSecondary'>
-              {post.userId === id ? email : post.user.email}
-            </Typography>
+            <span className={classes.email}>({post.userId === id ? email : post.user.email})</span>
+          </Typography>
+          <Typography variant='subtitle1' color='textSecondary'>
+            {maskDate(new Date(post.createdAt))}
           </Typography>
         </div>
         <div>
-          <Accordion elevation={0} className={classes.hideBorder}>
+          <Accordion elevation={0}>
             <AccordionSummary expandIcon={<ExpandMore />} aria-controls='panel1a-content' id='panel1a-header'>
               <Typography variant='h6'>Ver conteúdo</Typography>
             </AccordionSummary>
