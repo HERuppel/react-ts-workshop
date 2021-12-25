@@ -21,6 +21,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     img: {
       borderRadius: '50%',
       width: 180,
+      height: 180,
       objectFit: 'cover',
       borderColor: theme.palette.primary.dark,
       borderWidth: 2,
@@ -34,6 +35,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       justifyContent: 'center',
       padding: theme.spacing(5),
+    },
+    postsHeader: {
+      color: theme.palette.primary.main,
+      display: 'flex',
+      justifyContent: 'space-between',
     },
   }),
 );

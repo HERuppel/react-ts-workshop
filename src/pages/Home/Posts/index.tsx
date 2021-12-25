@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 // Components
 import { Box, ButtonBase, Container, Typography } from '@material-ui/core';
@@ -21,10 +21,10 @@ const Posts: React.FC = () => {
   const { posts, fetchPosts } = usePost();
   const [openModal, setOpenModal] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {
     (async () => {
+      if (posts.length > 0) return;
       try {
         setLoading(true);
         await fetchPosts();
@@ -39,14 +39,30 @@ const Posts: React.FC = () => {
         setLoading(false);
       }
     })();
-  }, [fetchPosts, refresh]);
+  }, [fetchPosts, posts]);
+
+  const refreshPage = useCallback(async () => {
+    try {
+      setLoading(true);
+      await fetchPosts();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      showAlert({
+        title: 'Ops...',
+        icon: 'error',
+        text: err.response.data.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchPosts]);
 
   return (
     <Container className={classes.container}>
       <Typography variant='h4'>Bem-vindo(a) ao KRUD!</Typography>
       <Box className={classes.content}>
         <div className={classes.header}>
-          <ButtonBase className={classes.refreshContainer} onClick={() => setRefresh(prev => !prev)}>
+          <ButtonBase className={classes.refreshContainer} onClick={refreshPage}>
             <Typography variant='h6'>Recarregar</Typography>
             <Refresh />
           </ButtonBase>
@@ -60,7 +76,13 @@ const Posts: React.FC = () => {
           />
         </div>
         <div className={classes.body}>
-          {loading ? <Loading loadingSize={50} /> : posts.map(post => <PostCard key={post.id} post={post} />)}
+          {loading ? (
+            <div className={classes.loadingContainer}>
+              <Loading loadingSize={50} />
+            </div>
+          ) : (
+            posts.map(post => <PostCard key={post.id} post={post} />)
+          )}
         </div>
       </Box>
     </Container>

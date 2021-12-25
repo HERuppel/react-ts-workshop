@@ -56,7 +56,6 @@ const Register: React.FC = () => {
     } finally {
       setLoading(false);
     }
-    console.log(data);
   };
 
   return (

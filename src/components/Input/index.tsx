@@ -28,8 +28,6 @@ const Input: React.FC<InputProps> = ({
     formState: { errors },
   } = useFormContext();
 
-  console.log(errors);
-
   return (
     <TextField
       variant='outlined'

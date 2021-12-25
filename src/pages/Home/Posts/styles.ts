@@ -44,5 +44,8 @@ export const useStyles = makeStyles((theme: Theme) =>
       color: theme.palette.primary.main,
       fontSize: 20,
     },
+    loadingContainer: {
+      padding: theme.spacing(5),
+    },
   }),
 );
