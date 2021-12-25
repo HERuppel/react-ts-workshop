@@ -15,7 +15,6 @@ import { usePost } from '../../../hooks/Post';
 import PostCard from '../../../components/PostCard';
 import { showAlert } from '../../../utils/showAlert';
 import Loading from '../../../components/Loading';
-import { User } from '../../../@types/User';
 
 const Posts: React.FC = () => {
   const classes = useStyles();

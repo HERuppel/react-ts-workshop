@@ -21,10 +21,9 @@ export const useStyles = makeStyles((theme: Theme) =>
       flexDirection: 'column',
       justifyContent: 'space-between',
     },
-    hideBorder: {
-      '&.MuiExpansionPanel-root:before': {
-        display: 'none',
-      },
+    email: {
+      color: theme.palette.text.secondary,
+      fontSize: theme.typography.subtitle1.fontSize,
     },
   }),
 );
