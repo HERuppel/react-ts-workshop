@@ -22,7 +22,7 @@ const User: React.FC = () => {
       try {
         setLoading(true);
         const res = await fetchPostsByUser(user.id as string);
-        console.log(res.content);
+
         setMyPosts(res.content as Post[]);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
@@ -51,10 +51,16 @@ const User: React.FC = () => {
         </div>
       </div>
       <div className={classes.body}>
-        <Typography variant='h4' color='textPrimary'>
+        <Typography variant='h3' color='primary'>
           Meus Posts
         </Typography>
-        {loading ? <Loading loadingSize={50} /> : myPosts.map(post => <PostCard key={post.id} post={post} />)}
+        {loading ? (
+          <div className={classes.loadingContainer}>
+            <Loading loadingSize={50} />
+          </div>
+        ) : (
+          myPosts.map(post => <PostCard key={post.id} post={post} />)
+        )}
       </div>
     </div>
   );

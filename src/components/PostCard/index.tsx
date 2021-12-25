@@ -20,7 +20,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const classes = useStyles();
 
   return (
-    <Grid container xs={12} spacing={4} className={classes.container}>
+    <Grid container spacing={4} className={classes.container}>
       <Grid item xs={2} className={classes.imgContainer}>
         <img className={classes.img} src={post.imageUrl ? post.imageUrl : tommy} alt='Post' />
       </Grid>

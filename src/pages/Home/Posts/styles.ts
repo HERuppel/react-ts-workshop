@@ -11,7 +11,6 @@ export const useStyles = makeStyles((theme: Theme) =>
     },
     content: {
       width: '100%',
-      backgroundColor: theme.palette.divider,
       borderRadius: 10,
       display: 'flex',
       flexDirection: 'column',

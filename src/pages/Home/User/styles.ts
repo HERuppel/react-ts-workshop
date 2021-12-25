@@ -13,7 +13,11 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'flex',
       gap: 50,
     },
-    body: {},
+    body: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      flexDirection: 'column',
+    },
     img: {
       borderRadius: '50%',
       width: 180,
@@ -25,6 +29,11 @@ export const useStyles = makeStyles((theme: Theme) =>
     userInfos: {
       display: 'flex',
       flexDirection: 'column',
+    },
+    loadingContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      padding: theme.spacing(5),
     },
   }),
 );
