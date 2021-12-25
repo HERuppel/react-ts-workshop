@@ -55,9 +55,11 @@ const Login: React.FC = () => {
             <Input
               name='email'
               label='E-mail'
+              required
+              givenError='Insira seu endereço de e-mail'
               defaultValue={state ? (state as { email: string }).email : ''}
             />
-            <Input name='password' label='Senha' type='password' />
+            <Input name='password' label='Senha' type='password' required givenError='Insira sua senha' />
           </FormProvider>
           <div className={classes.bottomContainer}>
             <Button className={classes.button} type='submit'>

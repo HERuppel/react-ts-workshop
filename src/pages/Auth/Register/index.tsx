@@ -67,10 +67,16 @@ const Register: React.FC = () => {
           </Typography>
         </div>
         <FormProvider {...formMethods}>
-          <Input name='email' label='E-mail' />
-          <Input name='name' label='Nome' />
-          <Input type='password' name='password' label='Senha' />
-          <Input type='password' name='confirmPassword' label='Confirme a senha' />
+          <Input name='email' label='E-mail' required givenError='Insira um endereço de e-mail' />
+          <Input name='name' label='Nome' required givenError='Insira seu nome' />
+          <Input type='password' name='password' label='Senha' required givenError='Insira uma senha' />
+          <Input
+            type='password'
+            name='confirmPassword'
+            label='Confirme a senha'
+            required
+            givenError='Insira a senha novamente'
+          />
         </FormProvider>
         <div className={classes.bottomContainer}>
           <Button className={classes.button} type='submit'>

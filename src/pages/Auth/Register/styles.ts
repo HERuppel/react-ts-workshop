@@ -17,7 +17,7 @@ export const useStyles = makeStyles((theme: Theme) =>
       gap: theme.spacing(2),
       backgroundColor: '#FFF',
       padding: theme.spacing(4),
-      height: '50%',
+      height: '55%',
       width: '25%',
       position: 'relative',
       borderRadius: 20,
