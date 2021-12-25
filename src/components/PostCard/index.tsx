@@ -7,6 +7,8 @@ import { useStyles } from './styles';
 import { ExpandMore } from '@material-ui/icons';
 import { maskDate } from '../../utils';
 
+import tommy from '../../assets/tommy.png';
+
 interface PostCardProps {
   post: Post;
 }
@@ -20,17 +22,19 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
   return (
     <Grid container xs={12} spacing={4} className={classes.container}>
       <Grid item xs={2} className={classes.imgContainer}>
-        <img className={classes.img} src={post.imageUrl} alt='Post' />
+        <img className={classes.img} src={post.imageUrl ? post.imageUrl : tommy} alt='Post' />
       </Grid>
       <Grid className={classes.right} item xs={10}>
         <div>
           <Typography variant='h4' color='secondary'>
             {post.title}
           </Typography>
-          <Typography variant='h6'>
-            Autor: {post.userId === id ? name : post.user.name}{' '}
-            <span className={classes.email}>({post.userId === id ? email : post.user.email})</span>
-          </Typography>
+          {post.user && (
+            <Typography variant='h6'>
+              Autor: {post.user.id === id ? name : post.user.name}{' '}
+              <span className={classes.email}>({post.user.id === id ? email : post.user.email})</span>
+            </Typography>
+          )}
           <Typography variant='subtitle1' color='textSecondary'>
             {maskDate(new Date(post.createdAt))}
           </Typography>

@@ -20,7 +20,7 @@ const Posts: React.FC = () => {
   const classes = useStyles();
   const { posts, fetchPosts } = usePost();
   const [openModal, setOpenModal] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [refresh, setRefresh] = useState<boolean>(false);
 
   useEffect(() => {

@@ -1,7 +1,63 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useStyles } from './styles';
+
+import tommy from '../../../assets/tommy.png';
+import { Typography } from '@material-ui/core';
+import { useAuth } from '../../../hooks/Auth';
+import { usePost } from '../../../hooks/Post';
+import PostCard from '../../../components/PostCard';
+import { Post } from '../../../@types/Post';
+import { showAlert } from '../../../utils/showAlert';
+import Loading from '../../../components/Loading';
 
 const User: React.FC = () => {
-  return <h1>User</h1>;
+  const classes = useStyles();
+  const { user } = useAuth();
+  const { fetchPostsByUser } = usePost();
+  const [myPosts, setMyPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        const res = await fetchPostsByUser(user.id as string);
+        console.log(res.content);
+        setMyPosts(res.content as Post[]);
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        showAlert({
+          title: 'Ops...',
+          text: err.response.data.message,
+          icon: 'error',
+        });
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [fetchPostsByUser, user]);
+
+  return (
+    <div className={classes.container}>
+      <div className={classes.header}>
+        <img className={classes.img} src={tommy} alt='profile' />
+        <div className={classes.userInfos}>
+          <Typography variant='h5' color='textPrimary'>
+            {user.name}
+          </Typography>
+          <Typography variant='h5' color='textSecondary'>
+            {user.email}
+          </Typography>
+        </div>
+      </div>
+      <div className={classes.body}>
+        <Typography variant='h4' color='textPrimary'>
+          Meus Posts
+        </Typography>
+        {loading ? <Loading loadingSize={50} /> : myPosts.map(post => <PostCard key={post.id} post={post} />)}
+      </div>
+    </div>
+  );
 };
 
 export default User;

@@ -7,6 +7,7 @@ interface PostContextData {
   posts: Post[];
   addPost: (newPost: Post) => Promise<Response<Post>>;
   fetchPosts: () => Promise<void>;
+  fetchPostsByUser: (userId: string) => Promise<Response<Post[]>>;
 }
 
 const PostContext = createContext<PostContextData>({} as PostContextData);
@@ -32,12 +33,19 @@ export const PostProvider: React.FC = ({ children }) => {
     return data;
   }, []);
 
+  const fetchPostsByUser = useCallback(async (userId: string): Promise<Response<Post[]>> => {
+    const { data }: { data: Response<Post[]> } = await api.get(`post/read/${userId}`);
+
+    return data;
+  }, []);
+
   return (
     <PostContext.Provider
       value={{
         posts,
         addPost,
         fetchPosts,
+        fetchPostsByUser,
       }}
     >
       {children}
