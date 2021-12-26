@@ -53,13 +53,21 @@ const Login: React.FC = () => {
           </Typography>
           <FormProvider {...formMethods}>
             <Input
+              variant='outlined'
               name='email'
               label='E-mail'
               required
               givenError='Insira seu endereço de e-mail'
               defaultValue={state ? (state as { email: string }).email : ''}
             />
-            <Input name='password' label='Senha' type='password' required givenError='Insira sua senha' />
+            <Input
+              variant='outlined'
+              name='password'
+              label='Senha'
+              type='password'
+              required
+              givenError='Insira sua senha'
+            />
           </FormProvider>
           <div className={classes.bottomContainer}>
             <Button className={classes.button} type='submit'>

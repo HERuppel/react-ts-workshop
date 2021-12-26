@@ -92,14 +92,23 @@ const Modal: React.FC<ModalProps> = ({
           </div>
           <FormProvider {...formMethods}>
             <form id='form' className={classes.body} onSubmit={handleSubmit(onSubmit)}>
-              <Input name='title' label='Título' required givenError='Insira o Título do post' />
-              <Input name='imageUrl' label='Imagem' />
+              <Input
+                variant='outlined'
+                name='title'
+                label='Título'
+                required
+                givenError='Insira o Título do post'
+              />
+              <Input variant='outlined' name='imageUrl' label='Imagem' />
               <Input
                 name='body'
                 label='Texto'
+                variant='outlined'
                 required
                 givenError='Insira o texto'
                 multiline
+                minRows={4}
+                maxRows={6}
                 customClass={classes.textarea}
               />
               <Button className={classes.button} type='submit' endIcon={<Save />}>

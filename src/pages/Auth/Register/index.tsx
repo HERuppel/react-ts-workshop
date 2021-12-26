@@ -67,10 +67,24 @@ const Register: React.FC = () => {
           </Typography>
         </div>
         <FormProvider {...formMethods}>
-          <Input name='email' label='E-mail' required givenError='Insira um endereço de e-mail' />
-          <Input name='name' label='Nome' required givenError='Insira seu nome' />
-          <Input type='password' name='password' label='Senha' required givenError='Insira uma senha' />
           <Input
+            variant='outlined'
+            name='email'
+            label='E-mail'
+            required
+            givenError='Insira um endereço de e-mail'
+          />
+          <Input variant='outlined' name='name' label='Nome' required givenError='Insira seu nome' />
+          <Input
+            variant='outlined'
+            type='password'
+            name='password'
+            label='Senha'
+            required
+            givenError='Insira uma senha'
+          />
+          <Input
+            variant='outlined'
             type='password'
             name='confirmPassword'
             label='Confirme a senha'
