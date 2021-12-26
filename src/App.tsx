@@ -4,16 +4,13 @@ import AppRoutes from './routes';
 
 import { ThemeProvider } from '@material-ui/core/styles';
 import { theme } from './global/theme';
-import { AuthProvider } from './hooks/Auth';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <AuthProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </AuthProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
     </ThemeProvider>
   );
 }

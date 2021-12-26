@@ -1,7 +1,6 @@
 import { Typography, Grid, Accordion, AccordionSummary, AccordionDetails } from '@material-ui/core';
 import React from 'react';
 import { Post } from '../../@types/Post';
-import { useAuth } from '../../hooks/Auth';
 import { useStyles } from './styles';
 
 import { ExpandMore } from '@material-ui/icons';
@@ -14,9 +13,6 @@ interface PostCardProps {
 }
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
-  const {
-    user: { id, name, email },
-  } = useAuth();
   const classes = useStyles();
 
   return (
@@ -31,8 +27,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           </Typography>
           {post.user && (
             <Typography variant='h6'>
-              Autor: {post.user.id === id ? name : post.user.name}{' '}
-              <span className={classes.email}>({post.user.id === id ? email : post.user.email})</span>
+              Autor: Nome <span className={classes.email}>(email)</span>
             </Typography>
           )}
           <Typography variant='subtitle1' color='textSecondary'>
