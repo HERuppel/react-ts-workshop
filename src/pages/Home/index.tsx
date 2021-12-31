@@ -5,7 +5,7 @@ import Posts from './Posts';
 import { useStyles } from './styles';
 import User from './User';
 
-const Home: React.FC = () => {
+const Home = (): JSX.Element => {
   const classes = useStyles();
 
   return (

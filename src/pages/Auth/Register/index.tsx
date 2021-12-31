@@ -15,7 +15,7 @@ interface SignUpProps {
   confirmPassword: string;
 }
 
-const Register: React.FC = () => {
+const Register = (): JSX.Element => {
   const classes = useStyles();
   const formMethods = useForm<SignUpProps>();
   const navigate = useNavigate();

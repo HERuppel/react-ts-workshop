@@ -10,7 +10,7 @@ import { Post } from '../../../@types/Post';
 import { showAlert } from '../../../utils/showAlert';
 import Loading from '../../../components/Loading';
 
-const User: React.FC = () => {
+const User = (): JSX.Element => {
   const classes = useStyles();
   const { user } = useAuth();
   const { fetchPostsByUser } = usePost();

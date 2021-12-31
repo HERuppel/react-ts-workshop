@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router';
 import Login from './Login';
 import Register from './Register';
 
-const Auth: React.FC = () => {
+const Auth = (): JSX.Element => {
   return (
     <Routes>
       <Route path='register' element={<Register />} />

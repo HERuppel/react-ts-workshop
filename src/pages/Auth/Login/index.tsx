@@ -13,7 +13,7 @@ interface FormCredentials {
   password: string;
 }
 
-const Login: React.FC = () => {
+const Login = (): JSX.Element => {
   const classes = useStyles();
   const { signIn } = useAuth();
   const navigate = useNavigate();

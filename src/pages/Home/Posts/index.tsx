@@ -16,7 +16,7 @@ import PostCard from '../../../components/PostCard';
 import { showAlert } from '../../../utils/showAlert';
 import Loading from '../../../components/Loading';
 
-const Posts: React.FC = () => {
+const Posts = (): JSX.Element => {
   const classes = useStyles();
   const { posts, fetchPosts } = usePost();
   const [openModal, setOpenModal] = useState<boolean>(false);
