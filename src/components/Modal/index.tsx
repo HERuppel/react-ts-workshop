@@ -13,14 +13,14 @@ interface ModalProps {
   buttonClass?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({
+const Modal = ({
   open,
   handleClose,
   handleOpen,
   buttonTitle,
   buttonIcon,
   buttonClass,
-}: ModalProps) => {
+}: ModalProps): JSX.Element => {
   const classes = useStyles();
 
   return (

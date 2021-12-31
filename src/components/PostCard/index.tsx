@@ -12,7 +12,7 @@ interface PostCardProps {
   post: Post;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
+const PostCard = ({ post }: PostCardProps): JSX.Element => {
   const classes = useStyles();
 
   return (

@@ -4,7 +4,7 @@ import Modal from '../../../components/Modal';
 import { useStyles } from './styles';
 import { Add, Refresh } from '@material-ui/icons';
 
-const Posts: React.FC = () => {
+const Posts = (): JSX.Element => {
   const classes = useStyles();
   const [openModal, setOpenModal] = useState<boolean>(false);
 

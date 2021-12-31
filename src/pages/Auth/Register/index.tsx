@@ -3,7 +3,7 @@ import { Button, Typography } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { useStyles } from './styles';
 
-const Register: React.FC = () => {
+const Register = (): JSX.Element => {
   const classes = useStyles();
 
   return (
