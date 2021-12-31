@@ -13,7 +13,7 @@ interface PostCardProps {
   post: Post;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
+const PostCard = ({ post }: PostCardProps): JSX.Element => {
   const {
     user: { id, name, email },
   } = useAuth();

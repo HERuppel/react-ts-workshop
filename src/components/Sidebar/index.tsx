@@ -6,7 +6,7 @@ import { Person, Textsms } from '@material-ui/icons';
 
 import useStyles from './styles';
 
-const SideBar: React.FC = () => {
+const SideBar = (): JSX.Element => {
   const classes = useStyles();
 
   const menu = (

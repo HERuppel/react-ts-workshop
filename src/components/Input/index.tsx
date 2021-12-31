@@ -1,5 +1,5 @@
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import React from 'react';
+import TextField, { TextFieldProps } from '@material-ui/core/TextField';
 import { useFormContext } from 'react-hook-form';
 
 type InputProps = {
@@ -8,7 +8,7 @@ type InputProps = {
   customClass?: string;
 } & TextFieldProps;
 
-const Input: React.FC<InputProps> = ({ name, required, givenError, customClass, defaultValue, ...rest }) => {
+const Input = ({ name, required, givenError, customClass, defaultValue, ...rest }: InputProps): JSX.Element => {
   const {
     register,
     formState: { errors },
