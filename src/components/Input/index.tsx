@@ -8,7 +8,14 @@ type InputProps = {
   customClass?: string;
 } & TextFieldProps;
 
-const Input = ({ name, required, givenError, customClass, defaultValue, ...rest }: InputProps): JSX.Element => {
+const Input = ({
+  name,
+  required,
+  givenError,
+  customClass,
+  defaultValue,
+  ...rest
+}: InputProps): JSX.Element => {
   const {
     register,
     formState: { errors },
