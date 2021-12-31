@@ -3,7 +3,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import { useStyles } from './styles';
 
-const Login: React.FC = () => {
+const Login = (): JSX.Element => {
   const classes = useStyles();
 
   return (

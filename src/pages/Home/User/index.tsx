@@ -4,7 +4,7 @@ import { useStyles } from './styles';
 import tommy from '../../../assets/tommy.png';
 import { Typography } from '@material-ui/core';
 
-const User: React.FC = () => {
+const User = (): JSX.Element => {
   const classes = useStyles();
 
   return (
