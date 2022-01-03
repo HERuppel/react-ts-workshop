@@ -4,7 +4,7 @@ import { Post } from '../../@types/Post';
 import { useStyles } from './styles';
 
 import { ExpandMore } from '@material-ui/icons';
-import { maskDate } from '../../utils';
+import { maskDate } from '../../utils/maskDate';
 
 import tommy from '../../assets/tommy.png';
 
