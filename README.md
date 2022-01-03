@@ -28,6 +28,7 @@ Projeto prático desenvolvido em React JS utilizando Typescript
 * Abra o projeto e instale as dependências
 ```
   yarn ou npm i
+  *** Em caso de erro de engine: yarn --ignore-engines
 ```
 
 * Execute o projeto
