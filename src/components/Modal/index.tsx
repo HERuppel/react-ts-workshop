@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal as ModalComponent, Box, Button, Typography } from '@material-ui/core';
 import { useStyles } from './styles';
 
-import { Close } from '@material-ui/icons';
+import { Close, Save } from '@material-ui/icons';
+import { FormProvider, useForm } from 'react-hook-form';
+import { Post } from '../../@types/Post';
+import Input from '../Input';
+import Loading from '../Loading';
 
 interface ModalProps {
   open: boolean;
@@ -22,6 +26,13 @@ const Modal: React.FC<ModalProps> = ({
   buttonClass,
 }: ModalProps) => {
   const classes = useStyles();
+  const formMethods = useForm<Post>();
+  const { handleSubmit } = formMethods;
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const onSubmit = () => {
+    setLoading(prev => !prev);
+  };
 
   return (
     <>
@@ -44,7 +55,32 @@ const Modal: React.FC<ModalProps> = ({
               Fechar
             </Button>
           </div>
-          {/* to do form */}
+          <FormProvider {...formMethods}>
+            <form className={classes.body} onSubmit={handleSubmit(onSubmit)}>
+              <Input
+                variant='outlined'
+                name='title'
+                label='Título'
+                required
+                givenError='Insira o título do post'
+              />
+              <Input variant='outlined' name='imageUrl' label='Imagem' />
+              <Input
+                variant='outlined'
+                name='body'
+                label='Text'
+                required
+                givenError='Insira o texto'
+                multiline
+                minRows={4}
+                maxRows={6}
+                customClass={classes.textarea}
+              />
+              <Button className={classes.button} type='submit' endIcon={<Save />}>
+                {loading ? <Loading loadingSize={16} /> : 'Salvar'}
+              </Button>
+            </form>
+          </FormProvider>
         </Box>
       </ModalComponent>
     </>
