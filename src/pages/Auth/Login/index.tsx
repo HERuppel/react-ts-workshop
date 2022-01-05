@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Grid, Typography } from '@material-ui/core';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useStyles } from './styles';
 import { FormProvider, useForm } from 'react-hook-form';
 import Input from '../../../components/Input';
+import { useAuth } from '../../../hooks/Auth';
+import { showAlert } from '../../../utils/showAlert';
+import Loading from '../../../components/Loading';
 
 interface FormCredentials {
   email: string;
@@ -14,9 +17,26 @@ const Login = (): JSX.Element => {
   const classes = useStyles();
   const formMethods = useForm<FormCredentials>();
   const { handleSubmit } = formMethods;
+  const { state } = useLocation();
+  const [loading, setLoading] = useState<boolean>(false);
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
 
-  const onSubmit = () => {
-    console.log('SUBMIT');
+  const onSubmit = async (data: FormCredentials): Promise<void> => {
+    try {
+      setLoading(true);
+      await signIn(data);
+      navigate('/home/post', { state: {} });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      showAlert({
+        title: 'Ops...',
+        icon: 'error',
+        text: err.response.data.message,
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -38,7 +58,7 @@ const Login = (): JSX.Element => {
               label='E-mail'
               required
               givenError='Insira seu endereço de e-mail'
-              defaultValue=''
+              defaultValue={state ? (state as { email: string }).email : ''}
             />
             <Input
               variant='outlined'
@@ -51,7 +71,7 @@ const Login = (): JSX.Element => {
           </FormProvider>
           <div className={classes.bottomContainer}>
             <Button className={classes.button} type='submit'>
-              Entrar
+              {loading ? <Loading loadingSize={16} /> : 'Entrar'}
             </Button>
             <NavLink className={classes.signUp} to='/auth/register'>
               <Typography variant='h6'>Ainda não possui conta?</Typography>
