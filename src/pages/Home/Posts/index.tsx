@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Box, ButtonBase, Container, Typography } from '@material-ui/core';
 import Modal from '../../../components/Modal';
 import { useStyles } from './styles';
@@ -32,6 +32,23 @@ const Posts = (): JSX.Element => {
     })();
   }, [fetchPosts]);
 
+  const refreshPage = useCallback(async () => {
+    try {
+      setLoading(true);
+      await fetchPosts();
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      showAlert({
+        title: 'Ops...',
+        icon: 'error',
+        text: err.response.data.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  }, [fetchPosts]);
+
   return (
     <Container className={classes.container}>
       <Typography variant='h4' color='primary'>
@@ -39,7 +56,7 @@ const Posts = (): JSX.Element => {
       </Typography>
       <Box className={classes.content}>
         <div className={classes.header}>
-          <ButtonBase className={classes.refreshContainer} onClick={() => console.log('refresh')}>
+          <ButtonBase className={classes.refreshContainer} onClick={refreshPage}>
             <Typography variant='h6'>Recarregar</Typography>
             <Refresh />
           </ButtonBase>
