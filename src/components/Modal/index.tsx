@@ -7,6 +7,9 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { Post } from '../../@types/Post';
 import Input from '../Input';
 import Loading from '../Loading';
+import { usePost } from '../../hooks/Post';
+import { useAuth } from '../../hooks/Auth';
+import { showAlert } from '../../utils/showAlert';
 
 interface ModalProps {
   open: boolean;
@@ -27,11 +30,41 @@ const Modal: React.FC<ModalProps> = ({
 }: ModalProps) => {
   const classes = useStyles();
   const formMethods = useForm<Post>();
-  const { handleSubmit } = formMethods;
+  const { handleSubmit, reset } = formMethods;
   const [loading, setLoading] = useState<boolean>(false);
+  const { addPost } = usePost();
+  const {
+    user: { id },
+  } = useAuth();
 
-  const onSubmit = () => {
-    setLoading(prev => !prev);
+  const onSubmit = async (data: Post): Promise<void> => {
+    try {
+      setLoading(true);
+      const res = await addPost({ ...data, userId: id });
+
+      showAlert({
+        title: 'Sucesso!',
+        icon: 'success',
+        text: res.message,
+        customClass: classes.swalContainer,
+      });
+      onClose();
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      showAlert({
+        title: 'Ops...',
+        icon: 'error',
+        text: err.response.data.message,
+        customClass: classes.swalContainer,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const onClose = (): void => {
+    handleClose();
+    reset();
   };
 
   return (
@@ -64,7 +97,13 @@ const Modal: React.FC<ModalProps> = ({
                 required
                 givenError='Insira o título do post'
               />
-              <Input variant='outlined' name='imageUrl' label='Imagem' />
+              <Input
+                variant='outlined'
+                name='imageUrl'
+                label='Imagem'
+                required
+                givenError='A imagem do post é requerida'
+              />
               <Input
                 variant='outlined'
                 name='body'
