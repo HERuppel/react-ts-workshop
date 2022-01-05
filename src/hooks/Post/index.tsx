@@ -39,6 +39,14 @@ export const PostProvider: React.FC = ({ children }) => {
     return data;
   }, []);
 
+  // const updatePost = useCallback(async (updatedPost: Post): Promise<void> => {
+  //   const newPosts = posts.map(post => (post.id === updatedPost.id ? updatedPost : post));
+  // }, []);
+
+  // const deletePost = useCallback(async (deletedPost: Post): Promise<void> => {
+  //   const newPosts = posts.filter(post => post.id !== deletedPost.id);
+  // }, []);
+
   return (
     <PostContext.Provider
       value={{
