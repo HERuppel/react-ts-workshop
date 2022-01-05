@@ -7,6 +7,7 @@ import { ExpandMore } from '@material-ui/icons';
 import { maskDate } from '../../utils/maskDate';
 
 import tommy from '../../assets/tommy.png';
+import { useAuth } from '../../hooks/Auth';
 
 interface PostCardProps {
   post: Post;
@@ -14,6 +15,9 @@ interface PostCardProps {
 
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
   const classes = useStyles();
+  const {
+    user: { id, name, email },
+  } = useAuth();
 
   return (
     <Grid container spacing={4} className={classes.container}>
@@ -27,7 +31,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
           </Typography>
           {post.user && (
             <Typography variant='h6'>
-              Autor: Nome <span className={classes.email}>(email)</span>
+              Autor: {post.user.id === id ? name : post.user.name}{' '}
+              <span className={classes.email}>({post.user.id === id ? email : post.user.email})</span>
             </Typography>
           )}
           <Typography variant='subtitle1' color='textSecondary'>

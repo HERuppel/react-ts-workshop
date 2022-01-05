@@ -1,12 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, ButtonBase, Container, Typography } from '@material-ui/core';
 import Modal from '../../../components/Modal';
 import { useStyles } from './styles';
 import { Add, Refresh } from '@material-ui/icons';
+import { usePost } from '../../../hooks/Post';
+import { showAlert } from '../../../utils/showAlert';
+import Loading from '../../../components/Loading';
+import PostCard from '../../../components/PostCard';
 
 const Posts = (): JSX.Element => {
   const classes = useStyles();
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const { posts, fetchPosts } = usePost();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true);
+        await fetchPosts();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      } catch (err: any) {
+        showAlert({
+          title: 'Ops...',
+          icon: 'error',
+          text: err.response.data.message,
+        });
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [fetchPosts]);
 
   return (
     <Container className={classes.container}>
@@ -28,7 +52,15 @@ const Posts = (): JSX.Element => {
             buttonClass={classes.addButton}
           />
         </div>
-        <div className={classes.body}>{/* List Posts */}</div>
+        <div className={classes.body}>
+          {loading ? (
+            <div className={classes.loadingContainer}>
+              <Loading loadingSize={50} />
+            </div>
+          ) : (
+            posts.map(post => <PostCard key={post.id} post={post} />)
+          )}
+        </div>
       </Box>
     </Container>
   );
